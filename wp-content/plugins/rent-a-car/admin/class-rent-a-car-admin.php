@@ -100,4 +100,139 @@ class Rent_A_Car_Admin {
 
 	}
 
+	/**
+	 * Registers the "cars" custom post type.
+	 *
+	 * @since 1.0.0
+	 */
+	public function car_cpt_register() {
+
+		$labels = array(
+			'name'                  => _x( 'Cars', 'Post Type General Name', $this->plugin_name ),
+			'singular_name'         => _x( 'Car', 'Post Type Singular Name', $this->plugin_name ),
+			'menu_name'             => __( 'Cars', $this->plugin_name ),
+			'name_admin_bar'        => __( 'Car', $this->plugin_name ),
+			'add_new'               => __( 'Add New', $this->plugin_name ),
+			'add_new_item'          => __( 'Add New Car', $this->plugin_name ),
+			'edit_item'             => __( 'Edit Car', $this->plugin_name ),
+			'new_item'              => __( 'New Car', $this->plugin_name ),
+			'view_item'             => __( 'View Car', $this->plugin_name ),
+			'view_items'            => __( 'View Cars', $this->plugin_name ),
+			'search_items'          => __( 'Search Cars', $this->plugin_name ),
+			'not_found'             => __( 'No cars found', $this->plugin_name ),
+			'not_found_in_trash'    => __( 'No cars found in Trash', $this->plugin_name ),
+			'all_items'             => __( 'All Cars', $this->plugin_name ),
+			'archives'              => __( 'Car Archives', $this->plugin_name ),
+			'attributes'            => __( 'Car Attributes', $this->plugin_name ),
+			'parent_item_colon'     => __( 'Parent Car:', $this->plugin_name ),
+		);
+
+		$args = array(
+			'labels'                => $labels,
+			'description'           => __( 'Custom post type for managing cars.', $this->plugin_name ),
+			'public'                => true,
+			'has_archive'           => true,
+			'hierarchical'          => false,
+			'show_ui'               => true,
+			'show_in_menu'          => true,
+			'show_in_admin_bar'     => true,
+			'show_in_nav_menus'     => true,
+			'show_in_rest'          => true, // enables REST API
+			'publicly_queryable'    => true,
+			'exclude_from_search'   => false,
+			'query_var'             => true,
+			'can_export'            => true,
+			'rest_base'    			=> 'cars',
+			'rest_controller_class' => 'WP_REST_Posts_Controller',
+			'menu_position'         => 5,
+			'menu_icon'             => 'dashicons-car',
+			'capability_type'       => 'post',
+			'supports'              => array(
+				'title',
+				'excerpt',
+				'thumbnail',
+				'editor',
+			),
+		);
+
+		register_post_type( 'cars', $args );
+
+		// include in REST API output (_car_price, _car_external_link).
+		register_post_meta( 'cars', '_car_price', array(
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true,
+		) );
+
+		register_post_meta( 'cars', '_car_external_link', array(
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true,
+		) );
+
+	}
+
+	/**
+	 * Adds custom meta boxes for Cars CPT.
+	 *
+	 * @since 1.0.0
+	 */
+	public function add_car_meta_boxes() {
+		add_meta_box(
+			'car_details_box',
+			__( 'Car Details', $this->plugin_name ),
+			array( $this, 'render_car_meta_box' ),
+			'cars',
+			'normal',
+			'default'
+		);
+	}
+
+	/**
+	 * Renders the meta box fields.
+	 *
+	 * @param WP_Post $post The current post object.
+	 */
+	public function render_car_meta_box( $post ) {
+		include_once plugin_dir_path( __FILE__ ) . 'partials/render-car-meta-box.php';
+	}
+
+	/**
+	 * Saves the custom meta fields when the cars CPT is saved.
+	 *
+	 * @param int $post_id The post ID.
+	 * @since 1.0.0
+	 */
+	public function save_car_meta( $post_id ) {
+
+		// Security check: verify nonce
+	    if ( empty( $_POST['car_details_nonce'] ) || 
+	         ! wp_verify_nonce( $_POST['car_details_nonce'], 'save_car_details' ) ) {
+	        return;
+	    }
+
+	    // Ensure this is cars CPT
+	    if ( get_post_type( $post_id ) !== 'cars' ) return;
+
+	    // Permission check
+	    if ( ! current_user_can( 'edit_post', $post_id ) ) return;
+
+	    $fields = array(
+	        '_car_price'         => isset( $_POST['car_price'] ) ? sanitize_text_field( $_POST['car_price'] ) : '',
+	        '_car_external_link' => isset( $_POST['car_external_link'] ) ? esc_url_raw( $_POST['car_external_link'] ) : '',
+	    );
+
+	    // Loop through fields and update
+	    foreach ( $fields as $key => $value ) {
+	        update_post_meta( $post_id, $key, $value );
+	    	// Clean up empty fields from database (commented code because in rest api it may be needed to return blank values)
+	        // if ( ! empty( $value ) ) {
+	        //     update_post_meta( $post_id, $key, $value );
+	        // } else {
+	        //     delete_post_meta( $post_id, $key ); 
+	        // }
+	    }
+	}
+
+
 }
