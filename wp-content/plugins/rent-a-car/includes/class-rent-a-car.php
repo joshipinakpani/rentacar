@@ -158,6 +158,8 @@ class Rent_A_Car {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'car_cpt_register' );
+		$this->loader->add_action( 'init', $plugin_admin, 'register_car_brand_taxonomy' );
+
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_car_meta_boxes' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'save_car_meta' );
 

@@ -234,5 +234,47 @@ class Rent_A_Car_Admin {
 	    }
 	}
 
+	/**
+	 * Registers the "brand" taxonomy for the "cars" custom post type.
+	 *
+	 * @since 1.0.0
+	 */
+	public function register_car_brand_taxonomy() {
 
+		$labels = array(
+			'name'                       => _x( 'Brands', 'taxonomy general name', $this->plugin_name ),
+			'singular_name'              => _x( 'Brand', 'taxonomy singular name', $this->plugin_name ),
+			'search_items'               => __( 'Search Brands', $this->plugin_name ),
+			'popular_items'              => __( 'Popular Brands', $this->plugin_name ),
+			'all_items'                  => __( 'All Brands', $this->plugin_name ),
+			'parent_item'                => __( 'Parent Brand', $this->plugin_name ),
+			'parent_item_colon'          => __( 'Parent Brand:', $this->plugin_name ),
+			'edit_item'                  => __( 'Edit Brand', $this->plugin_name ),
+			'update_item'                => __( 'Update Brand', $this->plugin_name ),
+			'add_new_item'               => __( 'Add New Brand', $this->plugin_name ),
+			'new_item_name'              => __( 'New Brand Name', $this->plugin_name ),
+			'separate_items_with_commas' => __( 'Separate brands with commas', $this->plugin_name ),
+			'add_or_remove_items'        => __( 'Add or remove brands', $this->plugin_name ),
+			'choose_from_most_used'      => __( 'Choose from the most used brands', $this->plugin_name ),
+			'not_found'                  => __( 'No brands found.', $this->plugin_name ),
+			'menu_name'                  => __( 'Brands', $this->plugin_name ),
+		);
+
+		$args = array(
+			'labels'            => $labels,
+			'public'            => true,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'show_in_nav_menus' => true,
+			'show_tagcloud'     => true,
+			'show_in_rest'      => true, // enables REST API
+			'hierarchical'      => true, // category-style taxonomy
+			'query_var'         => true,
+			'rewrite'           => array( 'slug' => 'brand' ),
+		);
+
+		register_taxonomy( 'brand', array( 'cars' ), $args );
+	}
+
+	
 }
