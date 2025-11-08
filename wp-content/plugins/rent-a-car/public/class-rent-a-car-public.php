@@ -73,7 +73,9 @@ class Rent_A_Car_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/rent-a-car-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), '12.0.0' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/rent-a-car-public.css', array('swiper-css'), $this->version );
+
 
 	}
 
@@ -96,8 +98,35 @@ class Rent_A_Car_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/rent-a-car-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), '12.0.0', true );
+		wp_enqueue_script( $this->plugin_name . '-public', plugin_dir_url( __FILE__ ) . 'js/rent-a-car-public.js', array( 'jquery', 'swiper-js' ), $this->version, true );
+		wp_localize_script( $this->plugin_name . '-public', 'rentACarData', array(
+			'restUrl' => esc_url_raw( rest_url( 'rent-a-car/v1/cars' ) ),
+		));
 
+	}
+
+	/**
+	 * Returns the parsed [rent_a_car_slider] shortcode.
+	 *
+	 * @param array   {
+	 *     Attributes of the shortcode.
+	 *
+	 *     @type string $id ID of...
+	 * }
+	 * @param string  Shortcode content.
+	 *
+	 * @return string HTML content to display the shortcode.
+	 * 
+	 * @since    1.0.0
+	 */
+	public function render_rent_a_car_slider( $atts = [] ) {
+		$atts = shortcode_atts( array(
+			'limit' => -1,
+		), $atts, 'rent_a_car_slider' );
+		ob_start();
+		include plugin_dir_path( __FILE__ ).'partials/cars-rent-a-car.php';
+		return ob_get_clean();
 	}
 
 }

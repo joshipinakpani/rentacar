@@ -112,6 +112,11 @@ class Rent_A_Car {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rent-a-car-i18n.php';
 
 		/**
+		 * The class responsible for rest api of the plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rent-a-car-rest.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-rent-a-car-admin.php';
@@ -178,6 +183,10 @@ class Rent_A_Car {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		add_shortcode( 'rent_a_car_slider', [$plugin_public, 'render_rent_a_car_slider'] );
+
+		new Rent_A_Car_REST();
 
 	}
 
