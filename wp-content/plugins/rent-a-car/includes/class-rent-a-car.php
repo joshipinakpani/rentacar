@@ -186,6 +186,19 @@ class Rent_A_Car {
 
 		add_shortcode( 'rent_a_car_slider', [$plugin_public, 'render_rent_a_car_slider'] );
 
+		/**
+		 * Initialize custom REST API routes.
+		 *
+		 * Note:
+		 * A custom endpoint (rent-a-car/v1/cars) is created instead of using the default (wp/v2/cars)
+		 * to provide structured, optimized, and frontend-ready data.
+		 *
+		 * - wp/v2/cars → default WordPress endpoint (generic post data, includes unnecessary fields)
+		 * - rent-a-car/v1/cars → custom endpoint (returns only relevant data like price, brand, external link, image, etc.)
+		 *
+		 * This approach ensures better control, cleaner responses, and easier integration
+		 * with the frontend Swiper.js slider and brand filter.
+		 */
 		new Rent_A_Car_REST();
 
 	}
