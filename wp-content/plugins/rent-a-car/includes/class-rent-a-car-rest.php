@@ -41,12 +41,13 @@ class Rent_A_Car_REST {
         while ( $query->have_posts() ) {
             $query->the_post();
             $cars[] = array(
-                'title'   => get_the_title(),
-                'link'    => get_permalink(),
-                'image'   => get_the_post_thumbnail_url( get_the_ID(), 'medium' ),
-                'price'   => get_post_meta( get_the_ID(), '_car_price', true ),
-                'external_link' => get_post_meta( get_the_ID(), '_car_external_link', true ),
-                'brand'   => wp_get_post_terms( get_the_ID(), 'brand', array( 'fields' => 'names' ) ),
+                'title'         => sanitize_text_field( get_the_title() ),
+                'link'          => esc_url_raw( get_permalink() ),
+                'excerpt'       => wp_kses_post( get_the_excerpt() ),
+                'image'         => esc_url_raw( get_the_post_thumbnail_url( get_the_ID(), 'medium' ) ),
+                'price'         => sanitize_text_field( get_post_meta( get_the_ID(), '_car_price', true ) ),
+                'external_link' => esc_url_raw( get_post_meta( get_the_ID(), '_car_external_link', true ) ),
+                'brand'         => array_map( 'sanitize_text_field', wp_get_post_terms( get_the_ID(), 'brand', array( 'fields' => 'names' ) ) ),
             );
         }
 

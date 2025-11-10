@@ -18,11 +18,12 @@
             container.append(`
                 <div class="swiper-slide">
                     <div class="car-card">
-                        <img src="${car.image || defaultImage}" alt="${car.title}" />
                         <h3>${car.title}</h3>
+                        <img src="${car.image || defaultImage}" alt="${car.title}" />
+                        <p>${car.excerpt} </p>
                         <p><strong>Brand:</strong> ${car.brand?.join(', ') || 'N/A'}</p>
                         <p><strong>Price:</strong> ${car.price || 'N/A'}</p>
-                        <p><strong>Mileage:</strong> ${car.mileage || 'N/A'}</p>
+                        <p><a href="${car.external_link || '#'}" target="_blank">External Link</a></p>
                         <a href="${car.link}" class="details-btn">More Details</a>
                     </div>
                 </div>
@@ -35,7 +36,7 @@
             pagination: { el: '.swiper-pagination', clickable: true },
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
             breakpoints: {
-                768: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
                 480: { slidesPerView: 1 },
             },
         });

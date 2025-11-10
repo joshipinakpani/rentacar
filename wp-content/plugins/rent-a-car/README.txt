@@ -1,114 +1,117 @@
-=== Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
-Donate link: https://www.resmed.com//
-Tags: comments, spam
-Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
+=== Rent A Car ===
+Contributors: pinakpani
+Donate link: https://www.resmed.com/
+Tags: car rental, slider, custom post type, rest api, filter, brand
+Requires at least: 5.8
+Tested up to: 6.7
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+Easily display and manage rental cars with brand filters and a dynamic REST API–powered slider.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+**Rent A Car** is a WordPress plugin that allows site owners to showcase cars available for rent using a responsive slider powered by the WP REST API and Swiper JS.  
+It dynamically fetches car data, displays brand filters, includes title, price, image and detail links for each car.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+### Key Features
+* Custom Post Type for “Cars”
+* Custom Taxonomy “Brand” for filtering
+* REST API endpoint to fetch cars dynamically
+* Responsive Swiper.js slider
+* AJAX-based brand filter
+* Secure meta fields for price and external link
+* Auto page creation for `/products/cars/rent-a-car/`
+* Graceful error handling with timeout and retry option
 
-A few notes about the sections above:
-
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
-
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
-
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+Perfect for car rental businesses, dealerships, or any listing of cars with modern UI and backend integration.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `rent-a-car.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+1. Upload the `rent-a-car` folder to the `/wp-content/plugins/` directory.
+2. Activate the plugin through the **Plugins** menu in WordPress.
+3. On activation, it will automatically create a page at `/products/cars/rent-a-car/`.
+4. /products/cars/rent-a-car/ page content already contains `[rent_a_car_slider]` where the car slider works.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= How do I add cars? =
+Go to **Cars → Add New** in the WordPress dashboard.  
+You can set title, price, external link, excerpt, featured image and assign a brand.
 
-An answer to that question.
+= How can I filter cars by brand? =
+The slider automatically displays a dropdown to filter cars by their assigned brand.
 
-= What about foo bar? =
+= What if no image is uploaded? =
+The plugin displays a default "No Image" placeholder from the plugin’s image directory.
 
-Answer to foo bar dilemma.
+= Does it support REST API? =
+Yes, the cars data is fetched dynamically from `/wp-json/rent-a-car/v1/cars`.
+
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Rent a Car Slider frontend with brand filter.
+2. Car Custom Post Type editor with fields for price and external link.
+3. Example REST API response in the browser.
+
+**1. Rent a Car Slider**
+![Rent a Car Slider](wp-content/plugins/rent-a-car/assets/screenshot-1.jpg)
+
+**2. Admin Car Post Type**
+![Admin CPT](wp-content/plugins/rent-a-car/assets/screenshot-2.jpg)
+
+**3. REST API Response**
+![REST API](wp-content/plugins/rent-a-car/assets/screenshot-3.jpg)
+
 
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+= 1.0.0 =
+* Initial release
+* Added custom post type “Cars” and taxonomy “Brand”
+* Added REST API endpoint `/rent-a-car/v1/cars`
+* Added `[rent_a_car_slider]` shortcode with Swiper.js slider
+* Implemented timeout and retry for data fetch
 
 == Upgrade Notice ==
 
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
-
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
+= 1.0.0 =
+Initial stable release of the Rent A Car plugin.
 
 == Arbitrary section ==
 
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
+### Shortcode Reference
 
-== A brief Markdown Example ==
+Use the following shortcode anywhere on your site:
+[rent_a_car_slider]
 
-Ordered list:
 
-1. Some feature
-1. Another feature
-1. Something else about the plugin
+### REST API Endpoint
+Fetch all cars data:
+GET /wp-json/rent-a-car/v1/cars
 
-Unordered list:
 
-* something
-* something else
-* third thing
+Optional filter by brand:
+GET /wp-json/rent-a-car/v1/cars?brand=audi
 
-Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
+== Credits ==
+Developed by Pinakpani Joshi
+Email: joshipinakpani@gmail.com
+GitHub: https://github.com/pinakpani
 
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
+== Features Summary ==
 
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
+| Feature | Description | Status |
+|----------|--------------|--------|
+|**Custom Post Type** | Adds a “Cars” post type to manage car listings. | ✅ |
+|**Brand Taxonomy** | Categorize cars by brand (Audi, BMW, etc.) | ✅ |
+|**REST API Endpoint** | Provides `/wp-json/rent-a-car/v1/cars` for fetching cars dynamically. | ✅ |
+|**Brand Filter Dropdown** | Filter cars by brand using AJAX. | ✅ |
+|**Responsive Swiper Slider** | Displays cars beautifully on all devices. | ✅ |
+|**Price & Link Meta Fields** | Each car includes price and external link fields. | ✅ |
+|**Auto Page Creation** | Automatically creates `/products/cars/rent-a-car/` page with shortcode [rent_a_car_slider] in content. | ✅ |
+|**Timeout & Retry Handling** | Ensures API calls recover gracefully from errors. | ✅ |
+|**Shortcode Support** | Use `[rent_a_car_slider]` anywhere on your site. | ✅ |
+|**Developer Friendly** | Clean code, hooks, and extensible structure. | ✅ |
