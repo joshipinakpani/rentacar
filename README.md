@@ -54,13 +54,13 @@ GET /wp-json/rent-a-car/v1/cars?brand=BMW
 ## Screenshots
 
 **1. Frontend – Rent a Car Slider with Brand Filter**  
-![Rent a Car Slider](wp-content/plugins/rent-a-car/assets/screenshot-1.jpg)
+![Rent a Car Slider](wp-content/plugins/rent-a-car/assets/screenshot-1.JPG)
 
 **2. Admin – Cars Custom Post Type**  
-![Car CPT](wp-content/plugins/rent-a-car/assets/screenshot-2.jpg)
+![Car CPT](wp-content/plugins/rent-a-car/assets/screenshot-2.JPG)
 
 **3. REST API Response Example**  
-![REST API](wp-content/plugins/rent-a-car/assets/screenshot-3.jpg)
+![REST API](wp-content/plugins/rent-a-car/assets/screenshot-3.JPG)
 
 ---
 
