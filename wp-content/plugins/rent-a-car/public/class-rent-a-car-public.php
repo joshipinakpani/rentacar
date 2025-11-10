@@ -102,6 +102,7 @@ class Rent_A_Car_Public {
 		wp_enqueue_script( $this->plugin_name . '-public', plugin_dir_url( __FILE__ ) . 'js/rent-a-car-public.js', array( 'jquery', 'swiper-js' ), $this->version, true );
 		wp_localize_script( $this->plugin_name . '-public', 'rentACarData', array(
 			'restUrl' => esc_url_raw( rest_url( 'rent-a-car/v1/cars' ) ),
+			'pluginUrl'   => plugin_dir_url( __FILE__ ),
 		));
 
 	}

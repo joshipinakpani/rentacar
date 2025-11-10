@@ -25,12 +25,20 @@ wp-config.php
 
 # Example plugin
 /wp-content/plugins/hello.php
+/wp-content/ai1wm-backups/
 
 # Uploads
 /wp-content/uploads/
 
+#WP All In Migration
+/wp-content/plugins/all-in-one-wp-migration/
+
 # Log files
 *.log
+
+# Zip and Backup Files
+*.zip
+*.wpress
 
 # htaccess
 /.htaccess
