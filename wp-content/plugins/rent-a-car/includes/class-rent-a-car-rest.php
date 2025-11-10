@@ -45,7 +45,7 @@ class Rent_A_Car_REST {
                 'link'    => get_permalink(),
                 'image'   => get_the_post_thumbnail_url( get_the_ID(), 'medium' ),
                 'price'   => get_post_meta( get_the_ID(), '_car_price', true ),
-                'exteernal_link' => get_post_meta( get_the_ID(), '_car_external_link', true ),
+                'external_link' => get_post_meta( get_the_ID(), '_car_external_link', true ),
                 'brand'   => wp_get_post_terms( get_the_ID(), 'brand', array( 'fields' => 'names' ) ),
             );
         }
